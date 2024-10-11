@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Billing System</title>
+    <script>
+        function calculateBill() {
+            const customerName = document.getElementById("customerName").value;
+            const unitsConsumed = parseInt(document.getElementById("unitsConsumed").value);
+            let billAmount;
+
+            if (isNaN(unitsConsumed) || unitsConsumed < 0) {
+                alert("Please enter a valid number of units.");
+                return;
+            }
+
+            if (unitsConsumed <= 100) {
+                billAmount = unitsConsumed * 1.50;
+            } else if (unitsConsumed <= 200) {
+                billAmount = 100 * 1.50 + (unitsConsumed - 100) * 2.00;
+            } else {
+                billAmount = 100 * 1.50 + 100 * 2.00 + (unitsConsumed - 200) * 3.00;
+            }
+
+            document.getElementById("result").innerHTML =
+                `<h2>Electricity Bill</h2>
+                <p>Customer Name: ${customerName}</p>
+                <p>Units Consumed: ${unitsConsumed}</p>
+                <p>Bill Amount: ₹${billAmount.toFixed(2)}</p>`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Electricity Billing System</h1>
+    <form onsubmit="event.preventDefault(); calculateBill();">
+        Customer Name: <input type="text" id="customerName" required><br>
+        Units Consumed: <input type="number" id="unitsConsumed" required><br>
+        <input type="submit" value="Calculate Bill">
+    </form>
+    <div id="result"></div>
+</body>
+</html>
